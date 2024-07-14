@@ -8,6 +8,7 @@ type Game struct {
 	GuessMap  map[rune]bool
 	MaxTries  int
 	TriesLeft int
+	Current   string
 }
 
 func NewGame(word string, maxtries int) *Game {
@@ -53,5 +54,14 @@ func (g *Game) CurrentState() string {
 			curr = curr + "_"
 		}
 	}
+	g.Current = curr
 	return curr
+}
+
+func (g *Game) IsWon() bool {
+	return g.Current == g.Word
+}
+
+func (g *Game) IsLost() bool {
+	return g.TriesLeft <= 0
 }

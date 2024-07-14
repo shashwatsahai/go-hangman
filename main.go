@@ -9,14 +9,9 @@ import (
 func main() {
 	g1 := game.NewGame("john", 4)
 	var guess rune
-	var win bool
-	for g1.TriesLeft > 0 && !win {
-		current := g1.CurrentState()
-		if current == g1.Word {
-			win = true
-			fmt.Println("You Won")
-			continue
-		}
+	var win, loss bool
+	for !win && !loss {
+
 		fmt.Println(g1.CurrentState())
 		fmt.Println("Tries Left", g1.TriesLeft)
 
@@ -24,6 +19,13 @@ func main() {
 		fmt.Scanf("%c\n", &guess)
 
 		g1.Guess(guess)
-
+		if win = g1.IsWon(); win {
+			fmt.Println("You Won")
+			break
+		}
+		if loss = g1.IsLost(); loss {
+			fmt.Println("You Lost")
+			break
+		}
 	}
 }
